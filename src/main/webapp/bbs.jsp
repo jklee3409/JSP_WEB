@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="src.bbs.BbsDAO" %>
+<%@ page import="src.bbs.Bbs" %>
+<%@ page import="java.util.ArrayList" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,32 +17,75 @@
             color: #343a40;
         }
         .navbar {
-            background-color: #ffffff; /* 흰색 배경 */
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .navbar-brand, .nav-link {
-            color: #007bff; /* 파란색 글자 */
+            color: #007bff;
+        }
+        .nav-link:hover {
+            color: #0056b3;
         }
         .active {
             font-weight: bold;
-            color: #0056b3; /* 현재 페이지 글자 색상 (진한 파란색) */
+            color: #0056b3;
         }
         .table-container {
-            margin-top: 20px; /* 테이블 위쪽 여백 */
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* 가운데 정렬 */
+            align-items: center;
         }
         .table {
-            width: 80%; /* 테이블 너비 */
-            margin-bottom: 20px; /* 버튼과의 간격 */
+            width: 85%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        .table th {
+            background-color: #f1f1f1;
+        }
+        .table td, .table th {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: center;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f9f9f9;
+        }
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 85%;
+        }
+        .btn {
+            border-radius: 50px;
+            padding: 10px 30px;
+            transition: all 0.3s;
         }
         .btn-primary {
-            background-color: #007bff; /* 버튼 색상 */
+            background-color: #007bff;
             border-color: #007bff;
         }
         .btn-primary:hover {
-            background-color: #0056b3; /* 버튼 호버 색상 */
+            background-color: #0056b3;
             border-color: #004085;
+        }
+        .btn-arrow-left, .btn-arrow-right {
+            font-size: 1.1rem;
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-arrow-left:hover, .btn-arrow-right:hover {
+            background-color: #218838;
+        }
+        .pagination {
+            display: flex;
+            justify-content: flex-start; /* 왼쪽 정렬 */
+        }
+        .btn-write {
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
         }
     </style>
 </head>
@@ -48,6 +94,10 @@
     String userID = null;
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
+    }
+    int pageNumber = 1;
+    if (request.getParameter("pageNumber") != null) {
+        pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
     }
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
@@ -104,25 +154,53 @@
 </nav>
 
 <div class="container table-container">
-    <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th style="background-color: #eeeeee; text-align: center;">번호</th>
-            <th style="background-color: #eeeeee; text-align: center;">제목</th>
-            <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-            <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
         </tr>
         </thead>
         <tbody>
+        <%
+            BbsDAO bbsDAO = new BbsDAO();
+            ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+            for (int i = 0; i < list.size(); i++) {
+        %>
         <tr>
-            <td>1</td>
-            <td>안녕하세요</td>
-            <td>이종규</td>
-            <td>2024-09-20</td>
+            <td><%= list.get(i).getBbsID() %></td>
+            <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %> "> <%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td>
+            <td><%= list.get(i).getUserID() %></td>
+            <td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시" + list.get(i).getBbsDate().substring(14, 16) + "분 " %></td>
         </tr>
+        <%
+            }
+        %>
         </tbody>
     </table>
-    <a href="write.jsp" class="btn btn-primary">글쓰기</a>
+
+    <div class="btn-container">
+        <div class="pagination">
+            <%
+                if (pageNumber != 1) {
+            %>
+            <a href="bbs.jsp?pageNumber=<%= pageNumber - 1 %>" class="btn btn-arrow-left">이전</a>
+            <%
+                }
+                if(bbsDAO.nextPage(pageNumber + 1)) {
+            %>
+            <a href="bbs.jsp?pageNumber=<%= pageNumber + 1 %>" class="btn btn-arrow-right">다음</a>
+            <%
+                }
+            %>
+        </div>
+
+        <div class="btn-write">
+            <a href="write.jsp" class="btn btn-primary">글쓰기</a>
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

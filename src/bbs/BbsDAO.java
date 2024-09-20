@@ -1,8 +1,10 @@
 package src.bbs;
 
-import sun.security.util.Password;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BbsDAO {
 
@@ -63,12 +65,81 @@ public class BbsDAO {
             preparedStatement.setString(5, bbsContent);
             preparedStatement.setInt(6, 1); // 처음 글을 작성했을 때는 삭제되지 않은 상태이므로, available = 1
 
-            rs = preparedStatement.executeQuery();
-
             return preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -1; // 데이터베이스 오류
+    }
+
+    public ArrayList<Bbs> getList(int pageNumber) {
+        // LIMIT 10 : 한번에 최대 10개의 결과만 가져옴. 페이징
+        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+        ArrayList<Bbs> list = new ArrayList<Bbs>();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            // page 1 : getNext() - 0 -> 가장 최신 글부터 10개
+            // page 2 : getNext() - 10 -> 최신 게시글에서 10개를 건너뛰고 다음 10개를 가져옴.
+            preparedStatement.setInt(1, getNext() - (pageNumber - 1) * 10);
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Bbs bbs = new Bbs();
+                bbs.setBbsID(rs.getInt(1));
+                bbs.setBbsTitle(rs.getString(2));
+                bbs.setUserID(rs.getString(3));
+                bbs.setBbsDate(rs.getString(4));
+                bbs.setBbsContent(rs.getString(5));
+                bbs.setBbsAvailable(rs.getInt(6));
+                list.add(bbs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean nextPage(int pageNumber) {
+        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, getNext() - (pageNumber - 1) * 10);
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Bbs getBBS(int bbsID) {
+        String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, bbsID);
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                Bbs bbs = new Bbs();
+
+                bbs.setBbsID(rs.getInt(1));
+                bbs.setBbsTitle(rs.getString(2));
+                bbs.setUserID(rs.getString(3));
+                bbs.setBbsDate(rs.getString(4));
+                bbs.setBbsContent(rs.getString(5));
+                bbs.setBbsAvailable(rs.getInt(6));
+
+                return bbs;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
