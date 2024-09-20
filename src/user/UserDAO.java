@@ -13,7 +13,7 @@ public class UserDAO {
 
     public UserDAO() {
         try {
-            String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
+            String dbURL = "jdbc:mysql://localhost:3306/BBS?useUnicode=true&characterEncoding=UTF-8";
             String dbID = "root";
             String dbPassword = "3409";
             Class.forName("com.mysql.jdbc.Driver");

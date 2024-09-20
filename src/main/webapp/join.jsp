@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<% request.setCharacterEncoding("utf-8"); %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -87,7 +88,7 @@
 <div class="container login-container">
     <div class="col-lg-4">
         <div class="login-box bg-light">
-            <form method="post" action="joinAction.jsp">
+            <form method="post" action="joinAction.jsp" accept-charset="UTF-8">
                 <h3 style="text-align: center;">회원가입</h3>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20" required>
