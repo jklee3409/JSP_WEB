@@ -142,4 +142,19 @@ public class BbsDAO {
 
         return null;
     }
+
+    public int update(int bbsID, String bbsTitle, String bbsContent) {
+        String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setString(1, bbsTitle);
+            preparedStatement.setString(2, bbsContent);
+            preparedStatement.setInt(3, bbsID);
+
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1; // 데이터베이스 오류
+    }
 }
