@@ -157,4 +157,18 @@ public class BbsDAO {
         }
         return -1; // 데이터베이스 오류
     }
+
+    public int delete(int bbsID) {
+        String SQL = "DELETE FROM BBS WHERE bbsID = ?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, bbsID);
+
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
 }
