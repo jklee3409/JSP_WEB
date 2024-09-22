@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/custom.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>JSP 게시판 웹 사이트</title>
     <style>
@@ -12,20 +13,63 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             color: #343a40;
+            justify-content: center;
         }
         .navbar {
-            background-color: #ffffff; /* 흰색 배경 */
+            background-color: #ffffff;
         }
         .navbar-brand, .nav-link {
-            color: #007bff; /* 파란색 글자 */
+            color: #007bff;
         }
         .navbar-brand:hover, .nav-link:hover {
-            color: #0056b3 !important; /* 진한 파란색으로 호버 시 */
+            color: #0056b3 !important;
         }
         .active {
             font-weight: bold;
-            color: #0056b3; /* 현재 페이지 글자 색상 (진한 파란색) */
+            color: #0056b3;
         }
+        .jumbotron {
+            background-color: #ffffff;
+            padding: 4rem 4rem;
+            margin-top: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        .jumbotron h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .jumbotron p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        /* 슬라이드 이미지 크기 조절 */
+        .carousel-inner img {
+            width: 100%;
+            height: 500px; /* 이미지를 줄이기 위한 높이 설정 */
+            object-fit: cover;
+        }
+        .carousel-control-prev, .carousel-control-next {
+            width: 5%;
+        }
+        /* 이미지와 텍스트 사이 간격 추가 */
+        .image-gap {
+            margin-top: 30px; /* 이미지와 텍스트 사이에 간격 추가 */
+        }
+
     </style>
 </head>
 <body>
@@ -87,6 +131,48 @@
         </div>
     </div>
 </nav>
+<div class="navbar">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>웹 사이트 소개</h1>
+            <p>이 웹 사이트는 부트스트랩으로 만든 JSP 웹 사이트입니다. 최소한의 간단한 로직만을 이용해서 개발했습니다. 플릿으로는 부트스트랩을 이용했습니다.</p>
+            <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">자세히 알아보기</a>
+        </div>
+    </div>
+</div>
+
+<!-- 이미지 슬라이드 -->
+<div class="container image-gap">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- 슬라이드 표시 버튼 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- 슬라이드 이미지 -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/1.png" alt="Slide 1">
+            </div>
+            <div class="carousel-item">
+                <img src="images/2.png" alt="Slide 2">
+            </div>
+            <div class="carousel-item">
+                <img src="images/3.png" alt="Slide 3">
+            </div>
+        </div>
+        <!-- 좌우 이동 버튼 -->
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
