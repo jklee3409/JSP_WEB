@@ -159,7 +159,7 @@ public class BbsDAO {
     }
 
     public int delete(int bbsID) {
-        String SQL = "DELETE FROM BBS WHERE bbsID = ?";
+        String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, bbsID);
@@ -169,6 +169,6 @@ public class BbsDAO {
             e.printStackTrace();
         }
 
-        return -1;
+        return -1; // 데이터베이스 오류
     }
 }
