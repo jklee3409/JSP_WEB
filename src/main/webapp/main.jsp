@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/custom.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <title>JSP 게시판 웹 사이트</title>
+    <title>IU 사진 게시판</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -31,10 +31,11 @@
         .jumbotron {
             background-color: #ffffff;
             padding: 4rem 4rem;
-            margin-top: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin: 0 auto;
+            top: 1px;
             position: relative;
         }
         .jumbotron h1 {
@@ -77,7 +78,7 @@
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="main.jsp">아이유 사진 게시판</a>
+        <a class="navbar-brand" href="main.jsp"><h1>IU 사진 게시판</h1></a>
         <button class="navbar-toggler" type="button"
                 data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,7 +132,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1>웹 사이트 소개</h1>
-            <p>이 웹 사이트는 아이유의 예쁜 순간들을 담아내는 곳입니다.</p>
+            <p>이 웹 사이트는 아이유의 예쁜 순간들을 담아내기 위한 곳입니다.</p>
             <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">자세히 알아보기</a>
         </div>
     </div>

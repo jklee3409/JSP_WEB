@@ -1,7 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/custom.css"/>
-    <title>아이유 사진 게시판</title>
+    <title>IU 사진 게시판</title>
 </head>
 <body>
 <script>
