@@ -7,7 +7,7 @@
 <jsp:setProperty name="user" property="userPassword"/>
 <html>
 <head>
-    <title>JSP 게시판 웹 사이트</title>
+    <title>아이유 사진 게시판</title>
 </head>
 <body>
 <%

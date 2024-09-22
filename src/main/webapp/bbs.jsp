@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css"/>
-    <title>JSP 게시판 웹 사이트</title>
+    <title>아이유 사진 게시판</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;

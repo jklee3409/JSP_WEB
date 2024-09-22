@@ -65,10 +65,6 @@
         .carousel-control-prev, .carousel-control-next {
             width: 5%;
         }
-        /* 이미지와 텍스트 사이 간격 추가 */
-        .image-gap {
-            margin-top: 30px; /* 이미지와 텍스트 사이에 간격 추가 */
-        }
 
     </style>
 </head>
@@ -81,7 +77,7 @@
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
+        <a class="navbar-brand" href="main.jsp">아이유 사진 게시판</a>
         <button class="navbar-toggler" type="button"
                 data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,7 +131,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1>웹 사이트 소개</h1>
-            <p>이 웹 사이트는 부트스트랩으로 만든 JSP 웹 사이트입니다. 최소한의 간단한 로직만을 이용해서 개발했습니다. 플릿으로는 부트스트랩을 이용했습니다.</p>
+            <p>이 웹 사이트는 아이유의 예쁜 순간들을 담아내는 곳입니다.</p>
             <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">자세히 알아보기</a>
         </div>
     </div>
