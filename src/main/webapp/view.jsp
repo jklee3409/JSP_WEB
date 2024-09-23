@@ -2,6 +2,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="src.bbs.Bbs" %>
 <%@ page import="src.bbs.BbsDAO" %>
+<%@ page import="java.io.File" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -177,6 +178,19 @@
             <td>작성 일자</td>
             <td><%= bbs.getBbsDate().substring(0, 11) + " " + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
         </tr>
+        <%
+            String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\target\\BBS\\WEB-INF\\bbsUpload";
+            File viewFile = new File(realPath + "\\" + bbsID + "사진.jpg");
+
+            if (viewFile.exists()) {
+        %>
+        <tr>
+            <td colspan="6"><br><br><img src="bbsUpload/<%=bbsID%>사진.jpg" border="300px" width="300px" height="300px"><br><br></td>
+        </tr>
+        <%
+            }else {
+        %>
+        <td colspan="6"><br><br></td>
         <tr>
             <td>내용</td>
             <td>
@@ -185,6 +199,9 @@
                 </div>
             </td>
         </tr>
+        <%
+            }
+        %>
     </table>
     <div class="button-container">
         <a href="bbs.jsp" class="btn-custom">목록</a>

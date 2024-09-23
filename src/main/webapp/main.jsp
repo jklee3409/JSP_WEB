@@ -132,7 +132,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1>웹 사이트 소개</h1>
-            <p>이 웹 사이트는 아이유의 예쁜 순간들을 담아내기 위한 곳입니다.</p>
+            <p>이 곳은 아이유의 예쁜 순간들을 담아내기 위한 곳입니다.</p>
             <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">자세히 알아보기</a>
         </div>
     </div>

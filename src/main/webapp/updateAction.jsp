@@ -3,6 +3,9 @@
 <%@page import="src.bbs.Bbs" %>
 <%@page import="java.io.PrintWriter" %>
 <%@ page import="src.user.UserDAO" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="java.io.File" %>
 
 
 <%
@@ -42,6 +45,24 @@
     }
 
     Bbs bbs = new BbsDAO().getBBS(bbsID);
+    String realFolder = "";
+    String saveFolder = "bbsUpload";
+    String encType = "utf-8";
+    int maxSize = 5 * 1024 * 1024;
+
+    ServletContext context = config.getServletContext();
+    realFolder = context.getRealPath(saveFolder);
+
+    MultipartRequest multi = null;
+
+    multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+    String fileName = multi.getFilesystemName("fileName");
+    String bbsTitle = multi.getParameter("bbsTitle");
+    String bbsContent = multi.getParameter("bbsContent");
+
+    bbs.setBbsTitle(bbsTitle);
+    bbs.setBbsContent(bbsContent);
+
     if (!userID.equals(bbs.getUserID())) {
         PrintWriter script = response.getWriter();
         script.println("<script>");
@@ -58,7 +79,7 @@
             script.println("</script>");
         } else {
             BbsDAO bbsDAO = new BbsDAO();
-            int result = bbsDAO.update(bbsID, request.getParameter("bbsTitle"), request.getParameter("bbsContent"));
+            int result = bbsDAO.update(bbsID, bbs.getBbsTitle(), bbs.getBbsContent());
 
             if (result == -1) {
                 PrintWriter script = response.getWriter();
@@ -68,6 +89,17 @@
                 script.println("</script>");
             } else {
                 PrintWriter script = response.getWriter();
+                if (fileName != null) {
+                    String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\src\\bbsUpload";
+                    File deFile = new File(realPath + "\\" + bbsID + "사진.jpg");
+                    if (deFile.exists()) {
+                        deFile.delete();
+                    }
+                    File oldFile = new File(realFolder + "\\" + fileName);
+                    File newFile = new File(realFolder + "\\" + bbsID + "사진.jpg");
+                    oldFile.renameTo(newFile);
+                }
+
                 script.println("<script>");
                 script.println("location.href = 'bbs.jsp'");
                 script.println("</script>");

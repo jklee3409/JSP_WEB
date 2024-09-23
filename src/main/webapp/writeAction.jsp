@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="src.bbs.BbsDAO" %>
 <%@page import="java.io.PrintWriter" %>
-<%@ page import="src.user.UserDAO" %>
+<%@page import="java.io.File" %>
+<%@page import="java.util.Enumeration" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <jsp:useBean id="bbs" class="src.bbs.Bbs" scope="page"/>
 <jsp:setProperty name="bbs" property="bbsTitle"/>
 <jsp:setProperty name="bbs" property="bbsContent"/>
@@ -23,6 +26,32 @@
     // userID 변수에 세션값 할당
     userID = (String) session.getAttribute("userID");
   }
+
+  String realFolder = "";
+  String saveFolder = "bbsUpload"; // 사진을 저장할 경로
+  String encType = "utf-8"; // 변환 형식
+  int maxSize = 5 * 1024 * 1024; // 사진의 size
+
+  realFolder = application.getRealPath(saveFolder); // saveFolder 절대 경로
+
+  File dir = new File(realFolder);
+  if (!dir.exists()) {
+    dir.mkdirs(); // Create directory if it does not exist
+  }
+
+
+  MultipartRequest multi = null;
+
+  // 파일 업로드를 직접적으로 담당
+  multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+
+  String fileName = multi.getFilesystemName("fileName");
+  String bbsTitle = multi.getParameter("bbsTitle");
+  String bbsContent = multi.getParameter("bbsContent");
+
+  bbs.setBbsTitle(bbsTitle);
+  bbs.setBbsContent(bbsContent);
+
   if (userID == null) {
     PrintWriter script = response.getWriter();
     script.println("<script>");
@@ -38,9 +67,9 @@
       script.println("</script>");
     } else {
       BbsDAO bbsDAO = new BbsDAO();
-      int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+      int bbsID = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
 
-      if (result == -1) {
+      if (bbsID == -1) {
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('글쓰기에 실패했습니다.')");
@@ -48,6 +77,12 @@
         script.println("</script>");
       } else {
         PrintWriter script = response.getWriter();
+        if (fileName != null) {
+          File oldFile = new File(realFolder + "\\" + fileName);
+          File newFile = new File(realFolder + "\\" + (bbsID - 1) + "사진.jpg");
+          oldFile.renameTo(newFile);
+        }
+
         script.println("<script>");
         script.println("location.href = 'bbs.jsp'");
         script.println("</script>");
