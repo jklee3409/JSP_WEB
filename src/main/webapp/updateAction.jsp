@@ -16,7 +16,7 @@
 
 <html>
 <head>
-    <title>IU 사진 게시판</title>
+    <title>KHU Eats</title>
 </head>
 <body>
 <%
@@ -79,7 +79,7 @@
             script.println("</script>");
         } else {
             BbsDAO bbsDAO = new BbsDAO();
-            int result = bbsDAO.update(bbsID, bbs.getBbsTitle(), bbs.getBbsContent();
+            int result = bbsDAO.update(bbsID, bbs.getBbsTitle(), bbs.getBbsContent());
 
             if (result == -1) {
                 PrintWriter script = response.getWriter();

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css"/>
-    <title>IU 사진 게시판</title>
+    <title>KHU Eats</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -74,7 +74,7 @@
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="main.jsp"><h1>IU 사진 게시판</h1></a>
+        <a class="navbar-brand" href="main.jsp"><h1>KHU Eats</h1></a>
         <button class="navbar-toggler" type="button"
                 data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

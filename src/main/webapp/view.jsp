@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css"/>
-    <title>IU 사진 게시판</title>
+    <title>KHU Eats</title>
     <style>
         /* 기존 스타일 유지 */
         body {
@@ -121,7 +121,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <!-- 기존 네비게이션 바 내용 유지 -->
     <div class="container-fluid">
-        <a class="navbar-brand" href="main.jsp"><h1>IU 사진 게시판</h1></a>
+        <a class="navbar-brand" href="main.jsp"><h1>KHU Eats</h1></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

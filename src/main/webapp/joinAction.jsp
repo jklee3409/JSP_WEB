@@ -16,7 +16,7 @@
 
 <html>
 <head>
-    <title>IU 사진 게시판</title>
+    <title>KHU Eats</title>
 </head>
 <body>
 <%
