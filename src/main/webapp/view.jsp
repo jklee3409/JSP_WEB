@@ -5,6 +5,7 @@
 <%@ page import="java.io.File" %>
 <html>
 <head>
+    <!-- 기존 헤더 내용 유지 -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
@@ -12,15 +13,17 @@
     <link rel="stylesheet" href="css/custom.css"/>
     <title>IU 사진 게시판</title>
     <style>
+        /* 기존 스타일 유지 */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f6f9;
             color: #343a40;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            align-items: flex-start;
+            min-height: 100vh;
         }
         .navbar {
             background-color: #fff;
@@ -33,27 +36,6 @@
             font-weight: bold;
             color: #0056b3;
         }
-        .form-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            text-align: center;
-        }
-        .form-control {
-            border-radius: 0.5rem;
-            border: 1px solid #ced4da;
-            margin-bottom: 15px;
-        }
-        .form-title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 20px;
-            font-size: 1.75rem;
-            color: #007bff;
-        }
         .content-box {
             max-width: 900px;
             width: 100%;
@@ -61,7 +43,7 @@
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
-            text-align: left;
+            margin-top: 60px;
         }
         .content-box table {
             width: 100%;
@@ -80,6 +62,22 @@
             background-color: #f9f9f9;
             border-radius: 10px;
             border: 1px solid #ddd;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .form-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.75rem;
+            color: #007bff;
         }
         .button-container {
             display: flex;
@@ -121,6 +119,7 @@
     Bbs bbs = new BbsDAO().getBBS(bbsID);
 %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <!-- 기존 네비게이션 바 내용 유지 -->
     <div class="container-fluid">
         <a class="navbar-brand" href="main.jsp"><h1>IU 사진 게시판</h1></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -163,7 +162,6 @@
     </div>
 </nav>
 
-
 <div class="content-box">
     <table>
         <tr>
@@ -179,18 +177,29 @@
             <td><%= bbs.getBbsDate().substring(0, 11) + " " + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
         </tr>
         <%
-            String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\target\\BBS\\WEB-INF\\bbsUpload";
+            String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\src\\main\\webapp\\bbsUpload";
             File viewFile = new File(realPath + "\\" + bbsID + "사진.jpg");
 
             if (viewFile.exists()) {
         %>
         <tr>
-            <td colspan="6"><br><br><img src="bbsUpload/<%=bbsID%>사진.jpg" border="300px" width="300px" height="300px"><br><br></td>
+            <td colspan="6">
+                <br><br>
+                <div class="image-container">
+                    <img src="bbsUpload/<%=bbsID%>사진.jpg" class="img-fluid" alt="게시글 이미지">
+                </div>
+                <br><br>
+            </td>
         </tr>
         <%
-            }else {
+        } else {
         %>
-        <td colspan="6"><br><br></td>
+        <tr>
+            <td colspan="6"><br><br></td>
+        </tr>
+        <%
+            }
+        %>
         <tr>
             <td>내용</td>
             <td>
@@ -199,9 +208,6 @@
                 </div>
             </td>
         </tr>
-        <%
-            }
-        %>
     </table>
     <div class="button-container">
         <a href="bbs.jsp" class="btn-custom">목록</a>

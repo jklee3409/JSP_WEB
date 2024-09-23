@@ -139,7 +139,7 @@
         <div class="form-title">게시판 글수정 양식</div>
         <input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" value="<%= bbs.getBbsTitle()%>" required>
         <textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048"  style="height: 350px"  required><%= bbs.getBbsContent()%></textarea>
-        <input type="file" name="bbsImage" value="<%= bbs.getBbsImage()%>"/>
+        <input type="file" name="bbsImage"/>
         <input type="submit" class="btn btn-primary" value="글수정">
     </form>
 </div>

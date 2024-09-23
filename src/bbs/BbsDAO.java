@@ -64,8 +64,9 @@ public class BbsDAO {
             preparedStatement.setString(4, getDate());
             preparedStatement.setString(5, bbsContent);
             preparedStatement.setInt(6, 1); // 처음 글을 작성했을 때는 삭제되지 않은 상태이므로, available = 1
+            preparedStatement.executeUpdate();
 
-            return preparedStatement.executeUpdate();
+            return getNext();
         } catch (Exception e) {
             e.printStackTrace();
         }

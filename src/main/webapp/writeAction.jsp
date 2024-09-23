@@ -27,18 +27,18 @@
     userID = (String) session.getAttribute("userID");
   }
 
-  String realFolder = "";
-  String saveFolder = "bbsUpload"; // 사진을 저장할 경로
+  String saveFolder = "/bbsUpload";  // webapp의 bbsUpload 경로
+  String realFolder = "C:/dev_factory/JSP/project/BBS/src/main/webapp" + saveFolder;  // 절대 경로로 강제 설정
   String encType = "utf-8"; // 변환 형식
   int maxSize = 5 * 1024 * 1024; // 사진의 size
 
-  realFolder = application.getRealPath(saveFolder); // saveFolder 절대 경로
+  System.out.println(realFolder);
 
   File dir = new File(realFolder);
+
   if (!dir.exists()) {
     dir.mkdirs(); // Create directory if it does not exist
   }
-
 
   MultipartRequest multi = null;
 
