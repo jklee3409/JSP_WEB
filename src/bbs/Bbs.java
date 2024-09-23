@@ -8,6 +8,15 @@ public class Bbs {
     private String bbsDate;
     private String bbsContent;
     private int bbsAvailable;
+    private int boardID;
+
+    public int getBoardID() {
+        return boardID;
+    }
+
+    public void setBoardID(int boardID) {
+        this.boardID = boardID;
+    }
 
     public int getBbsID() {
         return bbsID;

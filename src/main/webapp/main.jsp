@@ -131,9 +131,10 @@
 <div class="navbar">
     <div class="jumbotron">
         <div class="container">
-            <h1>웹 사이트 소개</h1>
-            <p>이 곳은 아이유의 예쁜 순간들을 담아내기 위한 곳입니다.</p>
-            <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">자세히 알아보기</a>
+            <h1>KHU EATS 소개</h1>
+            <p>경희대학교 주변의 맛집을 공유해보세요.</p>
+            <p>동기, 선배, 후배들에게 소개시켜 주고 싶은 나만의 맛집!</p>
+            <a class="btn btn-custom" href="https://github.com/jklee3409/JSP_WEB.git" role="button">GitHub</a>
         </div>
     </div>
 </div>
