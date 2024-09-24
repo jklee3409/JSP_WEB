@@ -106,6 +106,7 @@
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
     }
+
     int bbsID = 0;
     if (request.getParameter("bbsID") != null) {
         bbsID = Integer.parseInt(request.getParameter("bbsID"));

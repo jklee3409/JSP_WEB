@@ -36,8 +36,6 @@
   String encType = "utf-8"; // 변환 형식
   int maxSize = 5 * 1024 * 1024; // 사진의 size
 
-  System.out.println(realFolder);
-
   File dir = new File(realFolder);
 
   if (!dir.exists()) {
@@ -59,15 +57,15 @@
   if (userID == null) {
     PrintWriter script = response.getWriter();
     script.println("<script>");
-    script.println("로그인을 하세요.");
-    script.println("location.href = 'login.jsp'");
+    script.println("alert('권한이 없습니다.')");
+    script.println("history.back();");
     script.println("</script>");
   } else {
     if (bbs.getBbsTitle() == null || bbs.getBbsContent() == null) {
       PrintWriter script = response.getWriter();
       script.println("<script>");
       script.println("alert('입력이 안 된 사항이 있습니다.')");
-      script.println("history.back()");
+      script.println("history.back();");
       script.println("</script>");
     } else {
       BbsDAO bbsDAO = new BbsDAO();

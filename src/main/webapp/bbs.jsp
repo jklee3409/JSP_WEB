@@ -100,6 +100,15 @@
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
     }
+
+    if (userID == null) {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('권한이 없습니다.')");
+        script.println("history.back();");
+        script.println("</script>");
+    }
+
     int pageNumber = 1;
     if (request.getParameter("pageNumber") != null) {
         pageNumber = Integer.parseInt(request.getParameter("pageNumber"));

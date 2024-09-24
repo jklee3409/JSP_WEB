@@ -25,8 +25,8 @@
     if (userID == null) {
         PrintWriter script = response.getWriter();
         script.println("<script>");
-        script.println("로그인을 하세요.");
-        script.println("location.href = 'login.jsp'");
+        script.println("alert('권한이 없습니다.')");
+        script.println("history.back();");
         script.println("</script>");
     }
     int bbsID = 0;

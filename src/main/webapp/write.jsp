@@ -76,6 +76,14 @@
         userID = (String) session.getAttribute("userID");
     }
 
+    if (userID == null) {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('권한이 없습니다.')");
+        script.println("history.back();");
+        script.println("</script>");
+    }
+
     int boardID = 0;
     if (request.getParameter("boardID") != null) {
         boardID = Integer.parseInt(request.getParameter("boardID"));
