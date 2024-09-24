@@ -75,6 +75,7 @@ public class BbsDAO {
 
     public ArrayList<Bbs> getList(int pageNumber) {
         // LIMIT 10 : 한번에 최대 10개의 결과만 가져옴. 페이징
+        // DESC : 내림차순, ASC : 오름차순
         String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
         ArrayList<Bbs> list = new ArrayList<Bbs>();
         try {
@@ -150,6 +151,7 @@ public class BbsDAO {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setString(1, bbsTitle);
             preparedStatement.setString(2, bbsContent);
+            preparedStatement.setInt(3, bbsID);
 
             return preparedStatement.executeUpdate();
         } catch (Exception e) {
