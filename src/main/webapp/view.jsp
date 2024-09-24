@@ -69,7 +69,7 @@
         }
         .image-container img {
             max-width: 100%;
-            height: auto;
+            height: 500px;
             border-radius: 10px;
         }
         .form-title {
