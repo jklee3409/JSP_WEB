@@ -88,7 +88,7 @@
         }
 
         script.println("<script>");
-        script.println("location.href= 'bbs.jsp?boardID="+boardID+"'");
+        script.println("location.href= \'bbs.jsp?boardID="+boardID+"\'");
         script.println("</script>");
       }
     }
