@@ -63,6 +63,10 @@
         .navbar-toggler-icon {
             color: #007bff; /* 모바일 메뉴 버튼 색상 */
         }
+        .high-container{
+            margin-top: 30px;
+            margin-left: 300px;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +74,11 @@
     String userID = null;
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
+    }
+
+    int boardID = 0;
+    if (request.getParameter("boardID") != null) {
+        boardID = Integer.parseInt(request.getParameter("boardID"));
     }
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
@@ -125,8 +134,24 @@
     </div>
 </nav>
 
+<div class="high-container">
+    <%
+        if (boardID == 1) {
+    %>
+    <h1>맛집 공유</h1>
+    <p>경희대학교 주변의 맛집을 알려주세요!</p>
+    <%
+    } else if(boardID == 2) {
+    %>
+    <h1>자유 게시판</h1>
+    <p>자유롭게 글을 쓰는 곳입니다. 학교의 다양한 소식들을 공유해주세요!</p>
+    <%
+        }
+    %>
+</div>
+
 <div class="container form-container">
-    <form method="post" enctype="multipart/form-data" action="writeAction.jsp?keyValue=multipart">
+    <form method="post" enctype="multipart/form-data" action="writeAction.jsp?keyValue=multipart&boardID=<%=boardID%>">
         <div class="form-title">게시판 글쓰기 양식</div>
         <input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" required>
         <textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px" required></textarea>

@@ -54,8 +54,8 @@ public class BbsDAO {
         return -1; // 데이터베이스 오류
     }
 
-    public int write(String bbsTitle, String userID, String bbsContent) {
-        String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?)";
+    public int write(String bbsTitle, String userID, String bbsContent, int boardID) {
+        String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, getNext());
@@ -64,6 +64,7 @@ public class BbsDAO {
             preparedStatement.setString(4, getDate());
             preparedStatement.setString(5, bbsContent);
             preparedStatement.setInt(6, 1); // 처음 글을 작성했을 때는 삭제되지 않은 상태이므로, available = 1
+            preparedStatement.setInt(7, boardID);
             preparedStatement.executeUpdate();
 
             return getNext();
@@ -73,16 +74,17 @@ public class BbsDAO {
         return -1; // 데이터베이스 오류
     }
 
-    public ArrayList<Bbs> getList(int pageNumber) {
+    public ArrayList<Bbs> getList(int pageNumber, int boardID) {
         // LIMIT 10 : 한번에 최대 10개의 결과만 가져옴. 페이징
         // DESC : 내림차순, ASC : 오름차순
-        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+        String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND boardID = ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
         ArrayList<Bbs> list = new ArrayList<Bbs>();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             // page 1 : getNext() - 0 -> 가장 최신 글부터 10개
             // page 2 : getNext() - 10 -> 최신 게시글에서 10개를 건너뛰고 다음 10개를 가져옴.
             preparedStatement.setInt(1, getNext() - (pageNumber - 1) * 10);
+            preparedStatement.setInt(2, boardID);
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -93,6 +95,7 @@ public class BbsDAO {
                 bbs.setBbsDate(rs.getString(4));
                 bbs.setBbsContent(rs.getString(5));
                 bbs.setBbsAvailable(rs.getInt(6));
+                bbs.setBoardID(rs.getInt(7));
                 list.add(bbs);
             }
         } catch (Exception e) {

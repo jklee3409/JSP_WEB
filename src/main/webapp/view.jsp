@@ -97,6 +97,7 @@
         .btn-custom:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head>
 <body>
@@ -117,6 +118,11 @@
         script.println("</script>");
     }
     Bbs bbs = new BbsDAO().getBBS(bbsID);
+
+    int boardID = 0;
+    if (request.getParameter("boardID") != null) {
+        boardID = Integer.parseInt(request.getParameter("boardID"));
+    }
 %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <!-- 기존 네비게이션 바 내용 유지 -->

@@ -26,6 +26,11 @@
     userID = (String) session.getAttribute("userID");
   }
 
+  int boardID = 0;
+  if (request.getParameter("boardID") != null) {
+    boardID = Integer.parseInt(request.getParameter("boardID"));
+  }
+
   String saveFolder = "/bbsUpload";  // webapp의 bbsUpload 경로
   String realFolder = "C:/dev_factory/JSP/project/BBS/src/main/webapp" + saveFolder;  // 절대 경로로 강제 설정
   String encType = "utf-8"; // 변환 형식
@@ -66,7 +71,7 @@
       script.println("</script>");
     } else {
       BbsDAO bbsDAO = new BbsDAO();
-      int bbsID = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+      int bbsID = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent(), boardID);
 
       if (bbsID == -1) {
         PrintWriter script = response.getWriter();
@@ -83,7 +88,7 @@
         }
 
         script.println("<script>");
-        script.println("location.href = 'bbs.jsp'");
+        script.println("location.href= 'bbs.jsp?boardID="+boardID+"'");
         script.println("</script>");
       }
     }

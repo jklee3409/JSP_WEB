@@ -88,6 +88,10 @@
             display: flex;
             justify-content: flex-end; /* 오른쪽 정렬 */
         }
+        .high-container{
+            margin-top: 30px;
+            margin-left: 250px;
+        }
     </style>
 </head>
 <body>
@@ -99,6 +103,10 @@
     int pageNumber = 1;
     if (request.getParameter("pageNumber") != null) {
         pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+    }
+    int boardID = 0;
+    if (request.getParameter("boardID") != null) {
+        boardID = Integer.parseInt(request.getParameter("boardID"));
     }
 %>
 <nav class="navbar navbar-light navbar-expand-lg">
@@ -114,9 +122,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="main.jsp">메인</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="bbs.jsp">게시판</a>
-                </li>
+                <% if(boardID == 1) {%>
+                    <li class="nav-item active"><a class="nav-link" href="bbs.jsp?boardID=1&pageNumber=1">맛집 공유</a> </li>
+                    <li class="nav-item"><a class="nav-link" href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a> </li>
+                <%} else {%>
+                    <li class="nav-item"><a class="nav-link" href="bbs.jsp?boardID=1&pageNumber=1">맛집 공유</a> </li>
+                    <li class="nav-item active"><a class="nav-link" href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
+                <%}%>
             </ul>
             <%
                 if(userID == null) {
@@ -154,6 +166,22 @@
     </div>
 </nav>
 
+<div class="high-container">
+    <%
+        if (boardID == 1) {
+    %>
+    <h1>맛집 공유</h1>
+    <p>경희대학교 주변의 맛집을 알려주세요!</p>
+    <%
+        } else if(boardID == 2) {
+    %>
+    <h1>자유 게시판</h1>
+    <p>자유롭게 글을 쓰는 곳입니다. 학교의 다양한 소식들을 공유해주세요!</p>
+    <%
+        }
+    %>
+</div>
+
 <div class="container table-container">
     <table class="table table-striped">
         <thead>
@@ -167,12 +195,12 @@
         <tbody>
         <%
             BbsDAO bbsDAO = new BbsDAO();
-            ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+            ArrayList<Bbs> list = bbsDAO.getList(pageNumber, boardID);
             for (int i = 0; i < list.size(); i++) {
         %>
         <tr>
             <td><%= list.get(i).getBbsID() %></td>
-            <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %> "> <%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td>
+            <td><a href="view.jsp?boardID=<%=boardID%>&bbsID=<%= list.get(i).getBbsID() %> "> <%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td>
             <td><%= list.get(i).getUserID() %></td>
             <td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시" + list.get(i).getBbsDate().substring(14, 16) + "분 " %></td>
         </tr>
@@ -199,7 +227,7 @@
         </div>
 
         <div class="btn-write">
-            <a href="write.jsp" class="btn btn-primary">글쓰기</a>
+            <a href="write.jsp?boardID=<%=boardID%>" class="btn btn-primary">글쓰기</a>
         </div>
     </div>
 </div>
