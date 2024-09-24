@@ -136,9 +136,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="main.jsp">메인</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="bbs.jsp">게시판</a>
-                </li>
+                <% if(boardID == 1) {%>
+                <li class="nav-item active"><a class="nav-link" href="bbs.jsp?boardID=1&pageNumber=1">맛집 공유</a> </li>
+                <li class="nav-item"><a class="nav-link" href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a> </li>
+                <%} else {%>
+                <li class="nav-item"><a class="nav-link" href="bbs.jsp?boardID=1&pageNumber=1">맛집 공유</a> </li>
+                <li class="nav-item active"><a class="nav-link" href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
+                <%}%>
             </ul>
             <% if (userID == null) { %>
             <ul class="navbar-nav ml-auto">
