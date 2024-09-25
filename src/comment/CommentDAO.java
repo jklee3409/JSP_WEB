@@ -58,14 +58,14 @@ public class CommentDAO {
 
     }
 
-    public int write(int boardID, int bbsID, int userID, String commentText) {
+    public int write(int boardID, int bbsID, String userID, String commentText) {
         String SQL = "INSERT INTO comment VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, boardID);
             preparedStatement.setInt(2, getNext());
             preparedStatement.setInt(3, bbsID);
-            preparedStatement.setInt(4, userID);
+            preparedStatement.setString(4, userID);
             preparedStatement.setString(5, getDate());
             preparedStatement.setString(6, commentText);
             preparedStatement.setInt(7, 1);
