@@ -3,6 +3,9 @@
 <%@ page import="src.bbs.Bbs" %>
 <%@ page import="src.bbs.BbsDAO" %>
 <%@ page import="java.io.File" %>
+<%@ page import="src.comment.CommentDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="src.comment.Comment" %>
 <html>
 <head>
     <!-- 기존 헤더 내용 유지 -->
@@ -230,6 +233,81 @@
         <%
             }
         %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
+            <tbody>
+                <tr>
+                    <td align="left" bgcolor="#f5f5dc">댓글</td>
+                </tr>
+            <tr>
+                <%
+                    CommentDAO commentDAO = new CommentDAO();
+                    ArrayList<Comment> list = commentDAO.getList(boardID, bbsID);
+                    for(int i = 0; i < list.size(); i++){
+                %>
+                <div class="container">
+                    <div class="row">
+                        <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
+                            <tbody>
+                            <tr>
+                                <td align="left"><%= list.get(i).getUserID()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %>%></td>
+                                <td colspan="2"></td>
+                                <td align="right"></td>
+                                <%
+                                    // 댓글 작성자와 현재 로그인한 유저가 같은 경우 수정과 삭제 가능
+                                    if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
+                                %>
+                                <form name="p_search">
+                                    <a type="button" onclick="nwindow(<%=boardID%>,<%=bbsID%>,<%=list.get(i).getCommentID()%>)" class="btn-custom">수정</a>
+                                </form>
+                                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="commentDeleteAction.jsp?commentID=<%=list.get(i).getCommentID()%>" class="btn-custom">삭제</a>
+                                <%
+                                    }
+                                %>
+                            </tr>
+                            <tr>
+                                <td colspan="5" align="left"><%=list.get(i).getCommentText()%>
+                                    <%
+                                        String commentRealPath = "C:/dev_factory/JSP/project/BBS/src/main/webapp/commentUpload";
+                                        File commentFile = new File(commentRealPath + "\\" + bbsID + "사진" + list.get(i).getCommentID() + ".jpg");
+                                        if (commentFile.exists()) {
+                                    %>
+                                    <br><br><img src="commentUpload/<%=bbsID%>사진<%=list.get(i).getCommentID()%>.jpg" border="300px" width="300px"><br><br></td>
+                                    <%
+                                        }
+                                    %>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-group">
+        <form method="post" enctype="multipart/form-data" action="commentAction.jsp?bbsID=<%=bbsID%>%boardID=<%=boardID%>">
+            <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
+                <tr>
+                    <td style="border-bottom: none;" valign="middle"><br><br><%=userID%></td>
+                    <td><input type="text" style="height: 100px;" class="form-control" placeholder="댓글은 자신의 얼굴입니다." name="commentText"></td>
+                    <td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="file" name="fileName"></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </div>
 
