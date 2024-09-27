@@ -39,15 +39,6 @@
             font-weight: bold;
             color: #0056b3;
         }
-        .content-box {
-            max-width: 900px;
-            width: 100%;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin-top: 60px;
-        }
         .content-box table {
             width: 100%;
         }
@@ -75,13 +66,6 @@
             height: 500px;
             border-radius: 10px;
         }
-        .form-title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 20px;
-            font-size: 1.75rem;
-            color: #007bff;
-        }
         .button-container {
             display: flex;
             justify-content: flex-start;
@@ -107,7 +91,7 @@
             justify-content: center; /* Centers content vertically */
             align-items: center; /* Centers content horizontally */
             width: 100%;
-            max-width: 800px; /* Optional: Set a max width for readability */
+            max-width: 1200px; /* Optional: Set a max width for readability */
             margin: 0 auto; /* Centers the container horizontally */
             padding: 20px;
         }
@@ -209,72 +193,73 @@
     </div>
 </nav>
 
-<div class="content-box">
-    <table>
-        <tr>
-            <td>글 제목</td>
-            <td><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
-        </tr>
-        <tr>
-            <td>작성자</td>
-            <td><%= bbs.getUserID()%></td>
-        </tr>
-        <tr>
-            <td>작성 일자</td>
-            <td><%= bbs.getBbsDate().substring(0, 11) + " " + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
-        </tr>
-        <%
-            String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\src\\main\\webapp\\bbsUpload";
-            File viewFile = new File(realPath + "\\" + bbsID + "사진.jpg");
+<div class="container">
+    <div class="post-form">
+        <table>
+            <tr>
+                <td>글 제목</td>
+                <td><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td><%= bbs.getUserID()%></td>
+            </tr>
+            <tr>
+                <td>작성 일자</td>
+                <td><%= bbs.getBbsDate().substring(0, 11) + " " + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
+            </tr>
+            <%
+                String realPath = "C:\\dev_factory\\JSP\\project\\BBS\\src\\main\\webapp\\bbsUpload";
+                File viewFile = new File(realPath + "\\" + bbsID + "사진.jpg");
 
-            if (viewFile.exists()) {
-        %>
-        <tr>
-            <td colspan="6">
-                <br><br>
-                <div class="image-container">
-                    <img src="bbsUpload/<%=bbsID%>사진.jpg" class="img-fluid" alt="게시글 이미지">
-                </div>
-                <br><br>
-            </td>
-        </tr>
-        <%
-        } else {
-        %>
-        <tr>
-            <td colspan="6"><br><br></td>
-        </tr>
-        <%
-            }
-        %>
-        <tr>
-            <td>내용</td>
-            <td>
-                <div class="content-area">
-                    <%= bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div class="button-container">
-        <a href="bbs.jsp" class="btn-custom">목록</a>
-        <%
-            if (userID != null && userID.equals(bbs.getUserID())) {
-        %>
-        <a href="update.jsp?bbsID=<%= bbsID%>" class="btn-custom">수정</a>
-        <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%= bbsID%>" class="btn-custom">삭제</a>
-        <%
-            }
-        %>
+                if (viewFile.exists()) {
+            %>
+            <tr>
+                <td colspan="6">
+                    <br><br>
+                    <div class="image-container">
+                        <img src="bbsUpload/<%=bbsID%>사진.jpg" class="img-fluid" alt="게시글 이미지">
+                    </div>
+                    <br><br>
+                </td>
+            </tr>
+            <%
+            } else {
+            %>
+            <tr>
+                <td colspan="6"><br><br></td>
+            </tr>
+            <%
+                }
+            %>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <div class="content-area">
+                        <%= bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <a href="bbs.jsp" class="btn-custom">목록</a>
+            <%
+                if (userID != null && userID.equals(bbs.getUserID())) {
+            %>
+            <a href="update.jsp?bbsID=<%= bbsID%>" class="btn-custom">수정</a>
+            <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%= bbsID%>" class="btn-custom">삭제</a>
+            <%
+                }
+            %>
+        </div>
     </div>
-</div>
 
-<div class="container-box">
+<div class="comment-list">
     <div class="row">
         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
             <tbody>
             <tr>
-                <td align="left" bgcolor="#f5f5dc">댓글</td>
+                <td class="text-start bg-light">댓글</td>
             </tr>
             <tr>
                 <%
@@ -287,9 +272,16 @@
                         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
                             <tbody>
                             <tr>
-                                <td align="left"><%= list.get(i).getUserID()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %></td>
+                                <<td class="text-start">
+                                <%= list.get(i).getUserID() %>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <%= list.get(i).getCommentDate().substring(0, 11) %>
+                                <%= list.get(i).getCommentDate().substring(11, 13) %>시
+                                <%= list.get(i).getCommentDate().substring(14, 16) %>분
+                            </td>
                                 <td colspan="2"></td>
-                                <td align="right"></td>
+                                <td class="text-end"></td>
+
                                 <%
                                     // 댓글 작성자와 현재 로그인한 유저가 같은 경우 수정과 삭제 가능
                                     if (list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
@@ -309,7 +301,10 @@
                                         File commentFile = new File(commentRealPath + "\\" + bbsID + "사진" + list.get(i).getCommentID() + ".jpg");
                                         if (commentFile.exists()) {
                                     %>
-                                    <br><br><img src="commentUpload/<%=bbsID%>사진<%=list.get(i).getCommentID()%>.jpg" border="300px" width="300px"><br><br></td>
+                                    <br><br>
+                                    <img src="commentUpload/<%= bbsID %>사진<%= list.get(i).getCommentID() %>.jpg" class="img-fluid border" style="max-width: 300px; border-width: 5px;" alt="comment image">
+                                    <br><br>
+
                                 <%
                                     }
                                 %>
@@ -327,16 +322,19 @@
     </div>
 </div>
 
-<div class="container-box" style="margin-top: 200px; margin-left: 10px">
+<div class="comment-form" style="margin-top: 200px; margin-left: 10px">
     <div class="form-group">
         <form method="post" enctype="multipart/form-data" action="commentAction.jsp?keyValue=multipart&bbsID=<%=bbsID%>&boardID=<%=boardID%>">
             <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <tr>
-                    <td style="border-bottom: none;" valign="middle"><br><br><%=userID%></td>
+                    <td class="align-middle border-0">
+                        <br><br><%= userID %>
+                    </td>
+
                     <td><label>
                         <input type="text" style="height: 100px;" class="form-control" placeholder="댓글은 자신의 얼굴입니다." name="commentText">
                     </label></td>
-                    <td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
+                    <td><br><br><input type="submit" class="btn-custom" value="댓글 작성"></td>
                 </tr>
                 <tr>
                     <td colspan="3"><input type="file" name="fileName"></td>
