@@ -30,21 +30,24 @@
         boardID = Integer.parseInt(request.getParameter("boardID"));
     }
 
-    String saveFolder = "/commentUpload";  // webapp의 bbsUpload 경로
+    String saveFolder = "/commentUpload";  // webapp의 commentUpload 경로
     String realFolder = "C:/dev_factory/JSP/project/BBS/src/main/webapp" + saveFolder;  // 절대 경로로 강제 설정
     String encType = "utf-8"; // 변환 형식
     int maxSize = 5 * 1024 * 1024; // 사진의 size
 
+    MultipartRequest multi = null;
+
     File dir = new File(realFolder);
 
-    MultipartRequest multi = null;
+    if (!dir.exists()) {
+        dir.mkdirs(); // Create directory if it does not exist
+    }
 
     // 파일 업로드를 직접적으로 담당
     multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 
     String fileName = multi.getFilesystemName("fileName");
     String commentText = multi.getParameter("commentText");
-    comment.setCommentText(commentText);
 
     comment.setCommentText(commentText);
 
@@ -85,8 +88,8 @@
             } else {
                 PrintWriter script = response.getWriter();
                 if(fileName != null){
-                    File oldFile = new File(realFolder+"\\"+fileName);
-                    File newFile = new File(realFolder+"\\"+bbsID+"사진"+(commentID-1)+".jpg");
+                    File oldFile = new File(realFolder + "\\" + fileName);
+                    File newFile = new File(realFolder + "\\" + bbsID+"사진"+(commentID-1)+".jpg");
                     oldFile.renameTo(newFile);
                 }
                 script.println("<script>");

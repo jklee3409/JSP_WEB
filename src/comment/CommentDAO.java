@@ -17,7 +17,7 @@ public class CommentDAO {
             String dbURL = "jdbc:mysql://localhost:3306/BBS?useUnicode=true&characterEncoding=UTF-8";
             String dbID = "root";
             String dbPassword = "3409";
-            Class.forName("com.mysql.jdbc.driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
         } catch (Exception e) {

@@ -100,6 +100,39 @@
         .btn-custom:hover {
             background-color: #0056b3;
         }
+        /* Make sure the container takes full width and centers its content */
+        .container {
+            display: flex;
+            flex-direction: column; /* Stacks items vertically */
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            width: 100%;
+            max-width: 800px; /* Optional: Set a max width for readability */
+            margin: 0 auto; /* Centers the container horizontally */
+            padding: 20px;
+        }
+
+        /* Style each section to take the full width of the container */
+        .post-form,
+        .comment-list,
+        .comment-form {
+            width: 100%;
+            margin-bottom: 20px; /* Adds space between sections */
+        }
+
+        /* Optional: Style for inputs, buttons, etc., for better appearance */
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100px;
+            padding: 10px;
+            margin-top: 10px;
+            align-self: flex-end; /* Align button to the right */
+        }
 
     </style>
 </head>
@@ -236,13 +269,13 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-box">
     <div class="row">
         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
             <tbody>
-                <tr>
-                    <td align="left" bgcolor="#f5f5dc">댓글</td>
-                </tr>
+            <tr>
+                <td align="left" bgcolor="#f5f5dc">댓글</td>
+            </tr>
             <tr>
                 <%
                     CommentDAO commentDAO = new CommentDAO();
@@ -254,7 +287,7 @@
                         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
                             <tbody>
                             <tr>
-                                <td align="left"><%= list.get(i).getUserID()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %>%></td>
+                                <td align="left"><%= list.get(i).getUserID()%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %></td>
                                 <td colspan="2"></td>
                                 <td align="right"></td>
                                 <%
@@ -277,9 +310,9 @@
                                         if (commentFile.exists()) {
                                     %>
                                     <br><br><img src="commentUpload/<%=bbsID%>사진<%=list.get(i).getCommentID()%>.jpg" border="300px" width="300px"><br><br></td>
-                                    <%
-                                        }
-                                    %>
+                                <%
+                                    }
+                                %>
                             </tr>
                             </tbody>
                         </table>
@@ -294,13 +327,15 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-box" style="margin-top: 200px; margin-left: 10px">
     <div class="form-group">
-        <form method="post" enctype="multipart/form-data" action="commentAction.jsp?bbsID=<%=bbsID%>%boardID=<%=boardID%>">
+        <form method="post" enctype="multipart/form-data" action="commentAction.jsp?keyValue=multipart&bbsID=<%=bbsID%>&boardID=<%=boardID%>">
             <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
                 <tr>
                     <td style="border-bottom: none;" valign="middle"><br><br><%=userID%></td>
-                    <td><input type="text" style="height: 100px;" class="form-control" placeholder="댓글은 자신의 얼굴입니다." name="commentText"></td>
+                    <td><label>
+                        <input type="text" style="height: 100px;" class="form-control" placeholder="댓글은 자신의 얼굴입니다." name="commentText">
+                    </label></td>
                     <td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
                 </tr>
                 <tr>
@@ -310,6 +345,14 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+    function nwindow(boardID,bbsID,commentID){
+        window.name = "commentParant";
+        var url= "commentUpdate.jsp?boardID="+boardID+"&bbsID="+bbsID+"&commentID="+commentID;
+        window.open(url,"","width=600,height=230,left=300");
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
