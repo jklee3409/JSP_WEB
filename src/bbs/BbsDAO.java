@@ -11,6 +11,8 @@ public class BbsDAO {
     private Connection conn;
     private ResultSet rs;
 
+    // Docker Container -> MySQL
+    // Local DB -> Container DB
     public BbsDAO() {
         try {
             String dbURL = "jdbc:mysql://localhost:3306/BBS?useUnicode=true&characterEncoding=UTF-8";

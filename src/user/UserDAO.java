@@ -11,6 +11,8 @@ public class UserDAO {
     private PreparedStatement preparedStatement;
     private ResultSet rs;
 
+    // Docker Container -> MySQL
+    // Local DB -> Container DB
     public UserDAO() {
         try {
             String dbURL = "jdbc:mysql://localhost:3306/BBS?useUnicode=true&characterEncoding=UTF-8";

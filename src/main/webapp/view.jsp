@@ -25,7 +25,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             min-height: 100vh;
         }
         .navbar {
@@ -100,6 +100,7 @@
         .post-form,
         .comment-list,
         .comment-form {
+            align-self: center;
             width: 100%;
             margin-bottom: 20px; /* Adds space between sections */
         }
@@ -116,8 +117,8 @@
             padding: 10px;
             margin-top: 10px;
             align-self: flex-end; /* Align button to the right */
+            color: white;
         }
-
     </style>
 </head>
 <body>
@@ -197,15 +198,15 @@
     <div class="post-form">
         <table>
             <tr>
-                <td>글 제목</td>
+                <td colspan="5" align="left" bgcolor="#f5f5dc">글 제목</td>
                 <td><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></td>
             </tr>
             <tr>
-                <td>작성자</td>
+                <td colspan="5" align="left" bgcolor="#f5f5dc">작성자</td>
                 <td><%= bbs.getUserID()%></td>
             </tr>
             <tr>
-                <td>작성 일자</td>
+                <td colspan="5" align="left" bgcolor="#f5f5dc">작성 일자</td>
                 <td><%= bbs.getBbsDate().substring(0, 11) + " " + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
             </tr>
             <%
@@ -253,13 +254,14 @@
             %>
         </div>
     </div>
+</div>
 
 <div class="comment-list">
     <div class="row">
         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
             <tbody>
             <tr>
-                <td class="text-start bg-light">댓글</td>
+                <td>댓글</td>
             </tr>
             <tr>
                 <%
@@ -272,7 +274,7 @@
                         <table class="table-striped" style="text-align: center; border: 1px solid #dddddd">
                             <tbody>
                             <tr>
-                                <<td class="text-start">
+                                <td class="text-start">
                                 <%= list.get(i).getUserID() %>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <%= list.get(i).getCommentDate().substring(0, 11) %>
@@ -289,7 +291,7 @@
                                 <form name="p_search">
                                     <a type="button" onclick="nwindow(<%=boardID%>,<%=bbsID%>,<%=list.get(i).getCommentID()%>)" class="btn-custom">수정</a>
                                 </form>
-                                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="commentDeleteAction.jsp?commentID=<%=list.get(i).getCommentID()%>" class="btn-custom">삭제</a>
+                                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="commentDeleteAction.jsp?commentID=<%=list.get(i).getCommentID()%>&bbsID=<%=bbsID%>" class="btn-custom">삭제</a>
                                 <%
                                     }
                                 %>
